@@ -652,10 +652,10 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 6
-  cloudProjectId: 
+  cloudProjectId: 0efb1fe3-24dd-4c31-ac20-c28789f223ad
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: CSCI356 Game Project
+  organizationId: csci356-team-4
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
