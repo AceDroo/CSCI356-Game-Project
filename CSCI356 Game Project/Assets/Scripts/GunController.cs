@@ -6,16 +6,19 @@ public class GunController : MonoBehaviour {
 	public float damage = 10f;
 	public float range = 100f;
 	public float fireRate = 15f;
+    public float hitForce = 100f;
 	public float impactForce = 30f;
 
 	public Camera camera;
     public Transform gunEnd;
 
-    private WaitForSeconds shotDuration = new WaitForSeconds(0.07f);
     private LineRenderer laserLine;
 	private float timeToFire = 0f;
 
+    // private AudioSource gunAudio;
+
     void Start() {
+        // gunAudio = GetComponent<AudioSource>();
         laserLine = GetComponent<LineRenderer>();
     }
 
@@ -35,7 +38,7 @@ public class GunController : MonoBehaviour {
         Vector3 rayOrigin = camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
 
     	// If object has been hit by raycast, deal damage
-    	if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, range)) {
+    	if (Physics.Raycast(rayOrigin, camera.transform.forward, out hit, range)) {
     		// Draw laser line
             laserLine.SetPosition(1, hit.point);
 
@@ -44,9 +47,16 @@ public class GunController : MonoBehaviour {
 
     		// If hit object has target component, deal damage
     		Target target = hit.transform.GetComponent<Target>();
+
+            // Deal damage to target
     		if (target != null) {
     			target.TakeDamage(damage);
     		}
+
+            // Apply force to hit object
+            if (hit.rigidbody != null) {
+                hit.rigidbody.AddForce(-hit.normal * hitForce);
+            }
     	} else {
             laserLine.SetPosition(1, rayOrigin + (camera.transform.forward * range));
         }
@@ -55,9 +65,10 @@ public class GunController : MonoBehaviour {
         // gunAudio.Play();
 
         laserLine.enabled = true;
-        yield return shotDuration;
+        yield return fireRate;
         laserLine.enabled = false;
     }
 }
 
+// https://www.youtube.com/watch?v=AGd16aspnPA <= Unity: Lets Try Game Dev: Shooting via Raycasting - Unity Official Tutorials
 // https://www.youtube.com/watch?v=THnivyG0Mvo <= Brackeys: Shooting with Raycasts - Unity Tutorial
