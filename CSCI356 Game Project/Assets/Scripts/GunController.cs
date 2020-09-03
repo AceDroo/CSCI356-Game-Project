@@ -5,11 +5,16 @@ using UnityEngine;
 public class GunController : MonoBehaviour {
 	public float damage = 10f;
 	public float range = 100f;
+	public float fireRate = 15f;
+	public float impactForce = 30f;
 
 	public Camera camera;
 
+	private float timeToFire = 0f;
+
     void Update() {
-        if (Input.GetButtonDown("Fire1")) {
+        if (Input.GetButton("Fire1") && Time.time >= timeToFire) {
+        	timeToFire = Time.time + 1f  / fireRate;
         	Shoot();
         }
     }
