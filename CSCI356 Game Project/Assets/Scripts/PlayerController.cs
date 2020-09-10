@@ -16,9 +16,10 @@ public class PlayerController : MonoBehaviour {
     private float mvY = 0;
     private float mvZ = 0;
     private bool crouch = false;
-
+    private Transform gun;
     void Start() {
         Cursor.lockState = CursorLockMode.Locked;
+        gun = this.transform.GetChild(1);
     }
     void Update() {
         MouseAiming();
@@ -46,12 +47,14 @@ public class PlayerController : MonoBehaviour {
         if(Input.GetButtonDown("Crouch")){
             crouch = true;
             transform.localScale += new Vector3(0,-0.5f,0);
+            gun.localScale += new Vector3(0,0.25f,0);
             transform.localPosition += new Vector3(0,-0.5f,0);
         }
         if(Input.GetButtonUp("Crouch")){
             crouch = false;
             transform.localPosition += new Vector3(0,0.5f,0);
             transform.localScale += new Vector3(0,0.5f,0);
+            gun.localScale += new Vector3(0,-0.25f,0);
         }
 
         //Set move vectors
