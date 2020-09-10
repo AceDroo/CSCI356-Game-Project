@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour {
     private float mvX = 0;
     private float mvY = 0;
     private float mvZ = 0;
-    private Vector3 moveVector;
+
     void Start() {
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -22,9 +22,6 @@ public class PlayerController : MonoBehaviour {
     void Update() {
         MouseAiming();
         KeyboardMovement();
-    }
-    void Jump(){
-
     }
     void MouseAiming() {
         // Get mouse inputs
@@ -42,15 +39,13 @@ public class PlayerController : MonoBehaviour {
         mvX = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
         mvZ = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
 
-        moveVector = new Vector3(-rotX, transform.eulerAngles.y + rotY, 0);
-        moveVector.Normalize();
+        
     }
     void FixedUpdate() {
         //Move the player
         transform.Translate(new Vector3(mvX, 0, mvZ));
         //Rotate the camera
-        
-        transform.eulerAngles = moveVector;
+        transform.eulerAngles = new Vector3(-rotX, transform.eulerAngles.y + rotY, 0);
     }
 }
 
