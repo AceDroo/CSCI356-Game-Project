@@ -898,6 +898,7 @@ MonoBehaviour:
   damage: 10
   range: 100
   fireRate: 15
+  hitForce: 100
   impactForce: 30
   camera: {fileID: 963194227}
   gunEnd: {fileID: 854483487}
@@ -2099,7 +2100,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &1967095057
 MonoBehaviour:
@@ -2113,6 +2114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c2fb30e14a622546a7745d1d348db61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  turnSpeed: 4
 --- !u!1001 &1989765691
 PrefabInstance:
   m_ObjectHideFlags: 0
