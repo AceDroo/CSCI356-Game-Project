@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
     public float turnSpeed = 4.0f;
+    public float jumpForce = 6.0f;
     private float moveSpeed;
-    private float sprintSpeed = 8.0f;
-    private float walkSpeed = 4.0f;
-    private float crouchSpeed = 2.0f;
+    public float sprintSpeed = 8.0f;
+    public float walkSpeed = 4.0f;
+    public float crouchSpeed = 2.0f;
     private float minTurnAngle = -90.0f;
     private float maxTurnAngle = 90.0f;
     private float rotX;
@@ -17,9 +18,12 @@ public class PlayerController : MonoBehaviour {
     private float mvZ = 0;
     private bool crouch = false;
     private Transform gun;
+    private bool grounded;
+    private Rigidbody rigidBody;
     void Start() {
         Cursor.lockState = CursorLockMode.Locked;
         gun = this.transform.GetChild(1);
+        rigidBody = GetComponent<Rigidbody>();
     }
     void Update() {
         MouseAiming();
@@ -57,6 +61,11 @@ public class PlayerController : MonoBehaviour {
             gun.localScale += new Vector3(0,-0.25f,0);
         }
 
+        if(grounded && Input.GetButtonDown("Jump")){
+            grounded = false;
+            rigidBody.AddForce(new Vector3(0,jumpForce,0), ForceMode.Impulse);
+        }
+
         //Set move vectors
         mvX = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
         mvZ = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
@@ -72,6 +81,9 @@ public class PlayerController : MonoBehaviour {
         transform.Translate(new Vector3(mvX, 0, mvZ));
         //Rotate the camera
         transform.eulerAngles = new Vector3(-rotX, transform.eulerAngles.y + rotY, 0);
+    }
+    void OnCollisionStay(){
+        grounded = true;
     }
 }
 
