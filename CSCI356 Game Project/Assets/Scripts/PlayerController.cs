@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
     public float turnSpeed = 4.0f;
-    private float moveSpeed = 4.0f;
+    private float moveSpeed;
     private float sprintSpeed = 8.0f;
+    private float walkSpeed = 4.0f;
+    private float crouchSpeed = 2.0f;
     private float minTurnAngle = -90.0f;
     private float maxTurnAngle = 90.0f;
     private float rotX;
     private float rotY;
-
     private float mvX = 0;
     private float mvY = 0;
     private float mvZ = 0;
+    private bool crouch = false;
 
     void Start() {
         Cursor.lockState = CursorLockMode.Locked;
@@ -31,15 +33,32 @@ public class PlayerController : MonoBehaviour {
         rotX = Mathf.Clamp(rotX, minTurnAngle, maxTurnAngle);
     }
     void KeyboardMovement() {
-        // Control player movement
-        if(Input.GetButton("Sprint")){
-            mvX = Input.GetAxis("Horizontal") * Time.deltaTime * sprintSpeed;
-            mvZ = Input.GetAxis("Vertical") * Time.deltaTime * sprintSpeed;
+        //Set movement speed
+        if(Input.GetButton("Sprint") && !crouch){
+            moveSpeed = sprintSpeed;
+        }else if (crouch){
+            moveSpeed = crouchSpeed;
         }else{
-            mvX = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
-            mvZ = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
+            moveSpeed = walkSpeed;
         }
-        
+
+        //Crouch/Un-crouch
+        if(Input.GetButtonDown("Crouch")){
+            crouch = true;
+            transform.localScale += new Vector3(0,-0.5f,0);
+            transform.localPosition += new Vector3(0,-0.5f,0);
+        }
+        if(Input.GetButtonUp("Crouch")){
+            crouch = false;
+            transform.localPosition += new Vector3(0,0.5f,0);
+            transform.localScale += new Vector3(0,0.5f,0);
+        }
+
+        //Set move vectors
+        mvX = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
+        mvZ = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
+
+        //Fix diagonal movement speed
         if(Input.GetAxis("Horizontal") != 0 && Input.GetAxis("Vertical") != 0){
             mvX /= 2;
             mvY /= 2;
