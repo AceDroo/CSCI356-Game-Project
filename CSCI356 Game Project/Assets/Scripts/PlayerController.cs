@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
     public float turnSpeed = 4.0f;
     private float moveSpeed = 4.0f;
-
+    private float sprintSpeed = 8.0f;
     private float minTurnAngle = -90.0f;
     private float maxTurnAngle = 90.0f;
     private float rotX;
@@ -18,7 +18,6 @@ public class PlayerController : MonoBehaviour {
     void Start() {
         Cursor.lockState = CursorLockMode.Locked;
     }
-
     void Update() {
         MouseAiming();
         KeyboardMovement();
@@ -30,21 +29,21 @@ public class PlayerController : MonoBehaviour {
 
         // Clamp vertical rotation
         rotX = Mathf.Clamp(rotX, minTurnAngle, maxTurnAngle);
-
-        
-        
     }
     void KeyboardMovement() {
         // Control player movement
-        mvX = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
-        mvZ = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
-
+        if(Input.GetButton("Sprint")){
+            mvX = Input.GetAxis("Horizontal") * Time.deltaTime * sprintSpeed;
+            mvZ = Input.GetAxis("Vertical") * Time.deltaTime * sprintSpeed;
+        }else{
+            mvX = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
+            mvZ = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
+        }
+        
         if(Input.GetAxis("Horizontal") != 0 && Input.GetAxis("Vertical") != 0){
             mvX /= 2;
             mvY /= 2;
         }
-
-        
     }
     void FixedUpdate() {
         //Move the player
