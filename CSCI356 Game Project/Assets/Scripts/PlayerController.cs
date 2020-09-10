@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-    private float turnSpeed = 4.0f;
+    public float turnSpeed = 4.0f;
     private float moveSpeed = 4.0f;
 
     private float minTurnAngle = -90.0f;
