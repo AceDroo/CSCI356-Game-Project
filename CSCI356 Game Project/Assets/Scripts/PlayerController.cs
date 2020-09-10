@@ -39,6 +39,11 @@ public class PlayerController : MonoBehaviour {
         mvX = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
         mvZ = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
 
+        if(Input.GetAxis("Horizontal") != 0 && Input.GetAxis("Vertical") != 0){
+            mvX /= 2;
+            mvY /= 2;
+        }
+
         
     }
     void FixedUpdate() {
