@@ -18,12 +18,15 @@ public class PlayerController : MonoBehaviour {
     private float mvZ = 0;
     private bool crouch = false;
     private Transform gun;
+    private float gunScaleY;
     private bool grounded;
     private Rigidbody rigidBody;
     void Start() {
         Cursor.lockState = CursorLockMode.Locked;
         gun = this.transform.GetChild(1);
         rigidBody = GetComponent<Rigidbody>();
+        Vector3 gunScale = gun.transform.localScale;
+        gunScaleY = gunScale.y;
     }
     void Update() {
         MouseAiming();
@@ -51,14 +54,14 @@ public class PlayerController : MonoBehaviour {
         if(Input.GetButtonDown("Crouch")){
             crouch = true;
             transform.localScale += new Vector3(0,-0.5f,0);
-            gun.localScale += new Vector3(0,0.25f,0);
+            gun.localScale += new Vector3(0,gunScaleY,0);
             transform.localPosition += new Vector3(0,-0.5f,0);
         }
         if(Input.GetButtonUp("Crouch")){
             crouch = false;
             transform.localPosition += new Vector3(0,0.5f,0);
             transform.localScale += new Vector3(0,0.5f,0);
-            gun.localScale += new Vector3(0,-0.25f,0);
+            gun.localScale += new Vector3(0,-gunScaleY,0);
         }
 
         if(grounded && Input.GetButtonDown("Jump")){
