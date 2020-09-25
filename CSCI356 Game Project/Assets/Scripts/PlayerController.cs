@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-    public float turnSpeed = 4.0f;
-    public float jumpForce = 6.0f;
+    public float turnSpeed = 1.0f;
+    private float jumpForce = 6.0f;
     private float moveSpeed;
-    public float sprintSpeed = 8.0f;
-    public float walkSpeed = 4.0f;
-    public float crouchSpeed = 2.0f;
+    private float sprintSpeed = 3.0f;
+    private float walkSpeed = 1.5f;
+    private float crouchSpeed = 0.5f;
     private float minTurnAngle = -90.0f;
     private float maxTurnAngle = 90.0f;
     private float rotX;
