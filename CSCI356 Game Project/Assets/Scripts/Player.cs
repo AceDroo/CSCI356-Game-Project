@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-// using UnityStandardAssets.Characters.FirstPerson;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class Player : MonoBehaviour {
 	HealthManager healthManager;
@@ -12,36 +12,37 @@ public class Player : MonoBehaviour {
 
 	void Start() {
 		healthManager = GetComponent<HealthManager>();
+		deadScreen = GameObject.Find("UI/InGameUI/DeadScreen");
 	}
 
 	void Update() {
 		if(healthManager.IsDead && !isDestroyed) {
 			isDestroyed = true;
 
-		// 	StartCoroutine(ShowDeadScreen());
+			StartCoroutine(ShowDeadScreen());
 
-		// 	MonoBehaviour[] scripts = GetComponentsInChildren<MonoBehaviour>();
+			MonoBehaviour[] scripts = GetComponentsInChildren<MonoBehaviour>();
 
-		// 	foreach(MonoBehaviour script in scripts) {
-		// 		// Disable all weapons
-		// 		if(script is WeaponBase) {
-		// 			DisableWeapon((WeaponBase)script);
-		// 		}
-		// 		// Deactivate player controls
-		// 		else if(script is FirstPersonController) {
-		// 			DisableController((FirstPersonController)script);
-		// 		}
-		// 	}
+			foreach(MonoBehaviour script in scripts) {
+				// Disable all weapons
+				if(script is WeaponBase) {
+					DisableWeapon((WeaponBase)script);
+				}
+				// Deactivate player controls
+				else if(script is FirstPersonController) {
+					DisableController((FirstPersonController)script);
+				}
+			}
 		}
 	}
 
-	// void DisableWeapon(WeaponBase weapon) {
-	// 	weapon.IsEnabled = false;
-	// }
+	void DisableWeapon(WeaponBase weapon) {
+		weapon.IsEnabled = false;
+	}
 
-	// void DisableController(FirstPersonController controller) {
-	// 	controller.enabled = false;
-	// }
+	void DisableController(FirstPersonController controller) {
+		controller.enabled = false;
+	}
 
 	IEnumerator ShowDeadScreen() {
 		deadScreen.SetActive(true);

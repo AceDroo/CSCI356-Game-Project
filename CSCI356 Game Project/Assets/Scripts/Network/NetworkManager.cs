@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class NetworkManager : MonoBehaviour {
 	[SerializeField] string version = "v0.0.1";
-	[SerializeField] string roomName = "zombie-fps-test";
+	[SerializeField] string roomName = "spawning-test";
 	[SerializeField] string playerName = "Player";
 	[SerializeField] List<GameObject> players = new List<GameObject>();
 	public GameObject player;
