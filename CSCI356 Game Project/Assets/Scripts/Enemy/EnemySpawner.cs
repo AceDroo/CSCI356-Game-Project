@@ -17,6 +17,8 @@ public class EnemySpawner : MonoBehaviour {
 	public int startFund = 5;
 	public float upgradeDuration = 60f;	// Increase all enemy stats every 30 seconds
 
+	private int enemyCount;
+
 	private float upgradeTimer;
 	[SerializeField]
 	private float currentHealth;

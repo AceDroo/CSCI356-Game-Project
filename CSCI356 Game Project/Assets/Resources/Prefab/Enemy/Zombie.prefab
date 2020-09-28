@@ -783,8 +783,8 @@ MonoBehaviour:
   shouldChase: 1
   isInLateUpdate: 0
   shouldUpdate: 1
-  attackSound: {fileID: 0}
-  deathSound: {fileID: 0}
+  attackSound: {fileID: 8300000, guid: 48bb52e93914d6641ac42d3f88cd23fb, type: 3}
+  deathSound: {fileID: 8300000, guid: d7005ba952fe9aa43b627915286954d3, type: 3}
 --- !u!114 &2564256121532489570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -810,8 +810,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8a33b4966453c24c8cd5918b8533c54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  exp: 0
-  fund: 0
+  exp: 3
+  fund: 5
 --- !u!1 &1295900811385314
 GameObject:
   m_ObjectHideFlags: 0
