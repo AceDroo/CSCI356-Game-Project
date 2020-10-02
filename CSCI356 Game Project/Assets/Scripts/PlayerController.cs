@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour {
     private float crouchSpeed = 0.5f;
     private float minTurnAngle = -90.0f;
     private float maxTurnAngle = 90.0f;
+    private int sprintBar = 100;
     private float rotX;
     private float rotY;
     private float mvX = 0;
@@ -42,7 +43,7 @@ public class PlayerController : MonoBehaviour {
     }
     void KeyboardMovement() {
         //Set movement speed
-        if(Input.GetButton("Sprint") && !crouch){
+        if(Input.GetButton("Sprint") && !crouch && sprintBar > 0){
             moveSpeed = sprintSpeed;
         }else if (crouch){
             moveSpeed = crouchSpeed;
@@ -84,6 +85,16 @@ public class PlayerController : MonoBehaviour {
         transform.Translate(new Vector3(mvX, 0, mvZ));
         //Rotate the camera
         transform.eulerAngles = new Vector3(-rotX, transform.eulerAngles.y + rotY, 0);
+        //fill the sprint bar
+        if(!Input.GetButton("Sprint")){
+            if (sprintBar < 100){
+                sprintBar++;
+            }
+        }else{
+            if (sprintBar > 0){
+                sprintBar--;
+            }
+        }
     }
     void OnCollisionStay(){
         grounded = true;
