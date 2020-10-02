@@ -65,7 +65,10 @@ public class PlayerController : MonoBehaviour {
         //Jump when the player is grounded
         if(Input.GetButtonDown("Jump")){
             RaycastHit hit;
-            if(Physics.Raycast(transform.position, -transform.up, out hit, 1.1f)){
+            if(Physics.Raycast(transform.position + new Vector3(1,0,0), -transform.up, out hit, 1.1f) ||
+            Physics.Raycast(transform.position + new Vector3(-1,0,0), -transform.up, out hit, 1.1f) ||
+            Physics.Raycast(transform.position + new Vector3(0,0,1), -transform.up, out hit, 1.1f) ||
+            Physics.Raycast(transform.position + new Vector3(0,0,-1), -transform.up, out hit, 1.1f)){
                 rigidBody.AddForce(new Vector3(0,jumpForce,0), ForceMode.Impulse);
             }
         }
