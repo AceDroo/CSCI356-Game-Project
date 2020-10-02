@@ -19,12 +19,13 @@ public class PlayerController : MonoBehaviour {
     private bool crouch = false;
     private Transform gun;
     private float gunScaleY;
-    private bool grounded;
     private Rigidbody rigidBody;
+    private Collider playerCollider;
     void Start() {
         Cursor.lockState = CursorLockMode.Locked;
         gun = this.transform.GetChild(1);
         rigidBody = GetComponent<Rigidbody>();
+        playerCollider = GetComponent<Collider>();
         Vector3 gunScale = gun.transform.localScale;
         gunScaleY = gunScale.y;
     }
@@ -64,8 +65,8 @@ public class PlayerController : MonoBehaviour {
             gun.localScale += new Vector3(0,-gunScaleY,0);
         }
 
-        if(grounded && Input.GetButtonDown("Jump")){
-            grounded = false;
+        if(Input.GetButtonDown("Jump")){
+            
             rigidBody.AddForce(new Vector3(0,jumpForce,0), ForceMode.Impulse);
         }
 
@@ -85,9 +86,7 @@ public class PlayerController : MonoBehaviour {
         //Rotate the camera
         transform.eulerAngles = new Vector3(-rotX, transform.eulerAngles.y + rotY, 0);
     }
-    void OnCollisionStay(){
-        grounded = true;
-    }
+    
 }
 
 
