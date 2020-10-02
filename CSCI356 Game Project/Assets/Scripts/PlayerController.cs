@@ -20,12 +20,10 @@ public class PlayerController : MonoBehaviour {
     private Transform gun;
     private float gunScaleY;
     private Rigidbody rigidBody;
-    private Collider playerCollider;
     void Start() {
         Cursor.lockState = CursorLockMode.Locked;
         gun = this.transform.GetChild(1);
         rigidBody = GetComponent<Rigidbody>();
-        playerCollider = GetComponent<Collider>();
         Vector3 gunScale = gun.transform.localScale;
         gunScaleY = gunScale.y;
     }
@@ -64,10 +62,12 @@ public class PlayerController : MonoBehaviour {
             transform.localScale += new Vector3(0,0.5f,0);
             gun.localScale += new Vector3(0,-gunScaleY,0);
         }
-
+        //Jump when the player is grounded
         if(Input.GetButtonDown("Jump")){
-            
-            rigidBody.AddForce(new Vector3(0,jumpForce,0), ForceMode.Impulse);
+            RaycastHit hit;
+            if(Physics.Raycast(transform.position, -transform.up, out hit, 1.1f)){
+                rigidBody.AddForce(new Vector3(0,jumpForce,0), ForceMode.Impulse);
+            }
         }
 
         //Set move vectors
