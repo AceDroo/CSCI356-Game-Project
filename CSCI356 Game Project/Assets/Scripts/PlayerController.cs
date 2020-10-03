@@ -20,7 +20,6 @@ public class PlayerController : MonoBehaviour {
     private bool crouch = false;
     private Transform gun;
     private float gunScaleY;
-    private bool grounded;
     private Rigidbody rigidBody;
     void Start() {
         Cursor.lockState = CursorLockMode.Locked;
@@ -64,10 +63,15 @@ public class PlayerController : MonoBehaviour {
             transform.localScale += new Vector3(0,0.5f,0);
             gun.localScale += new Vector3(0,-gunScaleY,0);
         }
-
-        if(grounded && Input.GetButtonDown("Jump")){
-            grounded = false;
-            rigidBody.AddForce(new Vector3(0,jumpForce,0), ForceMode.Impulse);
+        //Jump when the player is grounded
+        if(Input.GetButtonDown("Jump")){
+            RaycastHit hit;
+            if(Physics.Raycast(transform.position + new Vector3(1,0,0), -transform.up, out hit, 1.1f) ||
+            Physics.Raycast(transform.position + new Vector3(-1,0,0), -transform.up, out hit, 1.1f) ||
+            Physics.Raycast(transform.position + new Vector3(0,0,1), -transform.up, out hit, 1.1f) ||
+            Physics.Raycast(transform.position + new Vector3(0,0,-1), -transform.up, out hit, 1.1f)){
+                rigidBody.AddForce(new Vector3(0,jumpForce,0), ForceMode.Impulse);
+            }
         }
 
         //Set move vectors
@@ -96,9 +100,7 @@ public class PlayerController : MonoBehaviour {
             }
         }
     }
-    void OnCollisionStay(){
-        grounded = true;
-    }
+    
 }
 
 
