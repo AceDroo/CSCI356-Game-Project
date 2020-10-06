@@ -1,84 +1,74 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CountdownTimer : MonoBehaviour {
-	public Text textDisplay;
-	public float startTime;
+	private bool timerActive = false;
+	public float timeStart = 60;
+	private float timeRemaining;
 
-	private float currentTime;
-	private bool timerActive = true;
+	public Text textDisplay;
 
 	private static CountdownTimer instance;
 
-	private void Awake() {
+	void Awake() {
+		// Implement Singleton
 		if (instance == null) {
 			instance = this;
 		}
 	}
 
-	void Start() {
-		// Set timer
-		currentTime = startTime;
+    void Start() {
+    	// Set initial variables
+    	timeRemaining = timeStart;
+        timerActive = true;
+    }
 
-		// Begin Timer
-		StartCoroutine(UpdateTimer());
-	}
+    void Update() {
+        if (timerActive) {
+        	if (timeRemaining > 0) {
+        		// Display current time
+        		UpdateDisplay();
 
-	/*
-	void Update() {
-		if (timerActive == false && secondsLeft > 0) {
-			StartCoroutine(UpdateTimer());
-		}
-	}
+        		// Subtract time
+        		timeRemaining -= Time.deltaTime;
+        	} else {
+                // Timer has run out
+        		Debug.Log("Time has run out!");
+        		timeRemaining = 0;
+        		timerActive = false;
+        	}
+        }
+    }
 
-	IEnumerator UpdateTimer() {
-		timerActive = true;
-    	yield return new WaitForSeconds(1);
-    	secondsLeft -= 1;
-    	UpdateTimerText();
-    	timerActive = false;
-	}
-	
-	private void UpdateTimerText() {
-    	if (secondsLeft < 10) {
-    		textDisplay.text = "Time Left: 00:00:0" + secondsLeft;
-    	} else {
-    		textDisplay.text = "Time Left: 00:00:" + secondsLeft;
+    public void PauseTimer() {
+    	timerActive = !timerActive;
+    }
+
+    public void AddTime(float time) {
+    	timeRemaining += time;
+    }
+
+    public void RemoveTime(float time) {
+    	if (timeRemaining - time > 0) {
+    		timeRemaining -= time;
     	}
     }
 
-    */
+    void UpdateDisplay() {
+    	float minutes = Mathf.FloorToInt(timeRemaining / 60);
+    	float seconds = Mathf.FloorToInt(timeRemaining % 60);
 
-	private IEnumerator UpdateTimer() {
-		while (timerActive) {
-			// Decrement time
-			currentTime -= 1 * Time.deltaTime;
-
-			// If current time is less than or equal to zero, stop
-			if (currentTime <= 0.0f) {
-				currentTime = 0.0f;
-			}
-
-			// Update Text Display
-			if (currentTime < 10) {
-				textDisplay.text = "Time Left: 0" + currentTime.ToString("#.00");
-			} else {
-				textDisplay.text = "Time Left: " + currentTime.ToString("#.00");
-			}
-
-			yield return null;
-		}
-	}
-
-	public void AddTime(float amount) {
-		currentTime += amount;
-	}
+    	textDisplay.text = string.Format("Time Left: {0:00}:{1:00}", minutes, seconds);
+    }
 }
 
 /// 19/09/2020
 /// https://www.youtube.com/watch?v=Qhm_t46kuM4
 /// https://www.youtube.com/watch?v=qc7J0iei3BU
 /// https://www.youtube.com/watch?v=o0j7PdU88a4
+
+/// 06/10/2020
+/// https://answers.unity.com/questions/225213/c-countdown-timer.html
+/// https://gamedevbeginner.com/how-to-make-countdown-timer-in-unity-minutes-seconds/
