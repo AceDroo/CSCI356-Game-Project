@@ -12,7 +12,7 @@ public class CountdownTimer : MonoBehaviour {
 
 	private static CountdownTimer instance;
 
-	private void Awake() {
+	void Awake() {
 		// Implement Singleton
 		if (instance == null) {
 			instance = this;
@@ -39,6 +39,20 @@ public class CountdownTimer : MonoBehaviour {
         		timerActive = false;
         	}
         }
+    }
+
+    public void PauseTimer() {
+    	timerActive = !timerActive;
+    }
+
+    public void AddTime(float time) {
+    	timeRemaining += time;
+    }
+
+    public void RemoveTime(float time) {
+    	if (timeRemaining - time > 0) {
+    		timeRemaining -= time;
+    	}
     }
 
     void DisplayTime(float timeToDisplay) {
