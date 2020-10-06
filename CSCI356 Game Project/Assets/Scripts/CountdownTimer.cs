@@ -29,11 +29,12 @@ public class CountdownTimer : MonoBehaviour {
         if (timerActive) {
         	if (timeRemaining > 0) {
         		// Display current time
-        		DisplayTime(timeRemaining);
+        		UpdateDisplay();
 
         		// Subtract time
         		timeRemaining -= Time.deltaTime;
         	} else {
+                // Timer has run out
         		Debug.Log("Time has run out!");
         		timeRemaining = 0;
         		timerActive = false;
@@ -55,9 +56,9 @@ public class CountdownTimer : MonoBehaviour {
     	}
     }
 
-    void DisplayTime(float timeToDisplay) {
-    	float minutes = Mathf.FloorToInt(timeToDisplay / 60);
-    	float seconds = Mathf.FloorToInt(timeToDisplay % 60);
+    void UpdateDisplay(float timeToDisplay) {
+    	float minutes = Mathf.FloorToInt(timeRemaining / 60);
+    	float seconds = Mathf.FloorToInt(timeRemaining % 60);
 
     	textDisplay.text = string.Format("Time Left: {0:00}:{1:00}", minutes, seconds);
     }
