@@ -56,7 +56,7 @@ public class CountdownTimer : MonoBehaviour {
     	}
     }
 
-    void UpdateDisplay(float timeToDisplay) {
+    void UpdateDisplay() {
     	float minutes = Mathf.FloorToInt(timeRemaining / 60);
     	float seconds = Mathf.FloorToInt(timeRemaining % 60);
 
