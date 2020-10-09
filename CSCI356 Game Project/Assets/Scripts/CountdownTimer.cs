@@ -62,6 +62,11 @@ public class CountdownTimer : MonoBehaviour {
 				currentTime = 0.0f;
 			}
 
+			if(currentTime >= 6.00f && currentTime <= 7.00f)
+            {
+				FindObjectOfType<AudioManager>().Play("Siren");
+            }
+
 			// Update Text Display
 			if (currentTime < 10) {
 				textDisplay.text = "Time Left: 0" + currentTime.ToString("#.00");

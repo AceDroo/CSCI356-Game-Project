@@ -2866,6 +2866,15 @@ MonoBehaviour:
     loop: 0
     mixerGroup: {fileID: 24300002, guid: 279b3462a70bf8a41b2895fdb37bfe31, type: 2}
     source: {fileID: 0}
+  - name: Siren
+    clip: {fileID: 8300000, guid: 6c0fb0c75687c004ba1eab480a81851d, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 24300002, guid: 279b3462a70bf8a41b2895fdb37bfe31, type: 2}
+    source: {fileID: 0}
 --- !u!4 &1411823892
 Transform:
   m_ObjectHideFlags: 0
