@@ -12,6 +12,7 @@ public class CountdownTimer : MonoBehaviour {
 	private bool timerActive = true;
 
 	private static CountdownTimer instance;
+	public GameObject congratsScreen;
 
 	private void Awake() {
 		if (instance == null) {
@@ -60,6 +61,10 @@ public class CountdownTimer : MonoBehaviour {
 			// If current time is less than or equal to zero, stop
 			if (currentTime <= 0.0f) {
 				currentTime = 0.0f;
+				Time.timeScale = 0f;
+				congratsScreen.SetActive(true);
+				Cursor.lockState = CursorLockMode.Confined;
+				PauseMenu.GamePaused = true;
 			}
 
 			if(currentTime >= 6.00f && currentTime <= 7.00f)
