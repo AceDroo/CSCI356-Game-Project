@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-    public static float turnSpeed = 4.0f;
+    public static float turnSpeed = 1.0f;
     public float jumpForce = 6.0f;
     private float moveSpeed;
-    public float sprintSpeed = 8.0f;
-    public float walkSpeed = 4.0f;
-    public float crouchSpeed = 2.0f;
+    private float sprintSpeed = 3.0f;
+    private float walkSpeed = 1.5f;
+    private float crouchSpeed = 0.5f;
     private float minTurnAngle = -90.0f;
     private float maxTurnAngle = 90.0f;
+    private int sprintBar = 100;
     private float rotX;
     private float rotY;
     private float mvX = 0;
@@ -19,7 +20,6 @@ public class PlayerController : MonoBehaviour {
     private bool crouch = false;
     private Transform gun;
     private float gunScaleY;
-    private bool grounded;
     private Rigidbody rigidBody;
     void Start() {
         Cursor.lockState = CursorLockMode.Locked;
@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour {
     }
     void KeyboardMovement() {
         //Set movement speed
-        if(Input.GetButton("Sprint") && !crouch){
+        if(Input.GetButton("Sprint") && !crouch && sprintBar > 0){
             moveSpeed = sprintSpeed;
         }else if (crouch){
             moveSpeed = crouchSpeed;
@@ -63,10 +63,15 @@ public class PlayerController : MonoBehaviour {
             transform.localScale += new Vector3(0,0.5f,0);
             gun.localScale += new Vector3(0,-gunScaleY,0);
         }
-
-        if(grounded && Input.GetButtonDown("Jump")){
-            grounded = false;
-            rigidBody.AddForce(new Vector3(0,jumpForce,0), ForceMode.Impulse);
+        //Jump when the player is grounded
+        if(Input.GetButtonDown("Jump")){
+            RaycastHit hit;
+            if(Physics.Raycast(transform.position + new Vector3(1,0,0), -transform.up, out hit, 1.1f) ||
+            Physics.Raycast(transform.position + new Vector3(-1,0,0), -transform.up, out hit, 1.1f) ||
+            Physics.Raycast(transform.position + new Vector3(0,0,1), -transform.up, out hit, 1.1f) ||
+            Physics.Raycast(transform.position + new Vector3(0,0,-1), -transform.up, out hit, 1.1f)){
+                rigidBody.AddForce(new Vector3(0,jumpForce,0), ForceMode.Impulse);
+            }
         }
 
         //Set move vectors
@@ -84,10 +89,18 @@ public class PlayerController : MonoBehaviour {
         transform.Translate(new Vector3(mvX, 0, mvZ));
         //Rotate the camera
         transform.eulerAngles = new Vector3(-rotX, transform.eulerAngles.y + rotY, 0);
+        //fill the sprint bar
+        if(!Input.GetButton("Sprint")){
+            if (sprintBar < 100){
+                sprintBar++;
+            }
+        }else{
+            if (sprintBar > 0){
+                sprintBar--;
+            }
+        }
     }
-    void OnCollisionStay(){
-        grounded = true;
-    }
+    
 }
 
 
