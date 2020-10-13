@@ -11,6 +11,7 @@ public class CountdownTimer : MonoBehaviour {
 	public Text textDisplay;
 
 	private static CountdownTimer instance;
+	public GameObject congratsScreen;
 
 	void Awake() {
 		// Implement Singleton
@@ -27,7 +28,7 @@ public class CountdownTimer : MonoBehaviour {
 
     void Update() {
         if (timerActive) {
-        	if (timeRemaining > 0) {
+        	if (timeRemaining > 0.0f) {
         		// Display current time
         		UpdateDisplay();
 
@@ -38,7 +39,16 @@ public class CountdownTimer : MonoBehaviour {
         		Debug.Log("Time has run out!");
         		timeRemaining = 0;
         		timerActive = false;
+
+                //Time.timeScale = 0f;
+                congratsScreen.SetActive(true);
+                Cursor.lockState = CursorLockMode.Confined;
+                PauseMenu.GamePaused = true;
         	}
+
+            if (timeRemaining >= 6.00f && timeRemaining <= 7.00f) {
+                FindObjectOfType<AudioManager>().Play("Siren");
+            }
         }
     }
 

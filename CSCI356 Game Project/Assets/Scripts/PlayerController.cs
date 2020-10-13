@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-    public float turnSpeed = 1.0f;
-    private float jumpForce = 6.0f;
+    public static float turnSpeed = 1.0f;
+    public float jumpForce = 6.0f;
     private float moveSpeed;
     private float sprintSpeed = 3.0f;
     private float walkSpeed = 1.5f;
