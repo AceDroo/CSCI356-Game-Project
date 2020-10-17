@@ -6,7 +6,7 @@ using UnityStandardAssets.Characters.FirstPerson;
 
 public class Player : MonoBehaviour {
 	HealthManager healthManager;
-	bool isDestroyed = false;
+	bool isDestroyed = false; 
 	public GameObject deadScreen;
 	
 

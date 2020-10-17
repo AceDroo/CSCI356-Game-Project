@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class CountdownTimer : MonoBehaviour {
 	private bool timerActive = false;
 	public float timeStart = 60;
 	private float timeRemaining;
+	bool isDestroyed = false; 
 
 	public Text textDisplay;
 
 	private static CountdownTimer instance;
 
+	public GameObject timeOutScreen;
+	
 	void Awake() {
 		// Implement Singleton
 		if (instance == null) {
@@ -20,6 +24,7 @@ public class CountdownTimer : MonoBehaviour {
 	}
 
     void Start() {
+		timeOutScreen = GameObject.Find("UI/InGameUI/TimeOutScreen");
     	// Set initial variables
     	timeRemaining = timeStart;
         timerActive = true;
@@ -34,13 +39,51 @@ public class CountdownTimer : MonoBehaviour {
         		// Subtract time
         		timeRemaining -= Time.deltaTime;
         	} else {
+				isDestroyed = true;
                 // Timer has run out
         		Debug.Log("Time has run out!");
         		timeRemaining = 0;
         		timerActive = false;
-        	}
+
+				StartCoroutine(ShowTimeOutScreen());
+
+				MonoBehaviour[] scripts = GetComponentsInChildren<MonoBehaviour>();
+
+				foreach(MonoBehaviour script in scripts) {
+					// Disable all weapons
+					if(script is WeaponBase) {
+						DisableWeapon((WeaponBase)script);
+					}
+					// Deactivate player controls
+					else if(script is FirstPersonController) {
+						DisableController((FirstPersonController)script);
+					}
+				}
+			}	
         }
     }
+
+	void DisableWeapon(WeaponBase weapon) {
+		weapon.IsEnabled = false;
+	}
+
+	void DisableController(FirstPersonController controller) {
+		controller.enabled = false;
+	}
+
+	IEnumerator ShowTimeOutScreen() {
+		timeOutScreen.SetActive(true);
+
+		Image image = timeOutScreen.GetComponent<Image>();
+		Color origColor = image.color;
+
+		for(float alpha = 0.0f; alpha <= 1.1f; alpha += 0.1f) {
+			image.color = new Color(origColor.r, origColor.g, origColor.b, alpha);
+			yield return new WaitForSeconds(0.1f);
+		}
+
+		yield break;
+	}
 
     public void PauseTimer() {
     	timerActive = !timerActive;
