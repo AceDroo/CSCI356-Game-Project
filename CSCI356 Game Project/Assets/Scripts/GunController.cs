@@ -60,12 +60,8 @@ public class GunController : MonoBehaviour {
         }
     }
     private IEnumerator ShotEffect() {
-
         laserLine.enabled = true;
         yield return fireRate;
         laserLine.enabled = false;
     }
 }
-
-// https://www.youtube.com/watch?v=AGd16aspnPA <= Unity: Lets Try Game Dev: Shooting via Raycasting - Unity Official Tutorials
-// https://www.youtube.com/watch?v=THnivyG0Mvo <= Brackeys: Shooting with Raycasts - Unity Tutorial

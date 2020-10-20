@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour {
     }
     void KeyboardMovement() {
         //Set movement speed
-        if(Input.GetButton("Sprint") && !crouch && sprintBar > 0){
+        if(Input.GetButton("Sprint") && !crouch && sprintBar > 0) {
             moveSpeed = stats.sprintSpeed;
         }else if (crouch){
             moveSpeed = stats.crouchSpeed;
@@ -80,11 +80,13 @@ public class PlayerController : MonoBehaviour {
         }
     }
     void FixedUpdate() {
-        //Move the player
+        // Move the player
         transform.Translate(new Vector3(mvX, 0, mvZ));
-        //Rotate the camera
+
+        // Rotate the camera
         transform.eulerAngles = new Vector3(-rotX, transform.eulerAngles.y + rotY, 0);
-        //fill the sprint bar
+
+        // Fill the sprint bar
         if(!Input.GetButton("Sprint")){
             if (sprintBar < 100){
                 sprintBar++;
@@ -95,9 +97,4 @@ public class PlayerController : MonoBehaviour {
             }
         }
     }
-    
 }
-
-
-// https://gamedevacademy.org/unity-3d-first-and-third-person-view-tutorial
-// https://medium.com/ironequal/unity-character-controller-vs-rigidbody-a1e243591483
