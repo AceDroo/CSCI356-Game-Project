@@ -15,10 +15,7 @@ public class GunController : MonoBehaviour {
     private LineRenderer laserLine;
 	private float timeToFire = 0f;
 
-    // private AudioSource gunAudio;
-
     void Start() {
-        // gunAudio = GetComponent<AudioSource>();
         laserLine = GetComponent<LineRenderer>();
     }
 
@@ -27,6 +24,7 @@ public class GunController : MonoBehaviour {
         	timeToFire = Time.time + 1f  / fireRate;
             StartCoroutine(ShotEffect());
         	Shoot();
+            FindObjectOfType<AudioManager>().Play("GunSound");
         }
     }
     void Shoot() {
@@ -62,13 +60,8 @@ public class GunController : MonoBehaviour {
         }
     }
     private IEnumerator ShotEffect() {
-        // gunAudio.Play();
-
         laserLine.enabled = true;
         yield return fireRate;
         laserLine.enabled = false;
     }
 }
-
-// https://www.youtube.com/watch?v=AGd16aspnPA <= Unity: Lets Try Game Dev: Shooting via Raycasting - Unity Official Tutorials
-// https://www.youtube.com/watch?v=THnivyG0Mvo <= Brackeys: Shooting with Raycasts - Unity Tutorial

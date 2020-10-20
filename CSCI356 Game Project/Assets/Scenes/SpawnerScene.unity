@@ -1458,7 +1458,7 @@ MonoBehaviour:
   roomName: Spawner-test
   playerName: Player
   players: []
-  player: {fileID: 1429202418419390, guid: af6814107cf1f4df0b898519a83a900c, type: 3}
+  player: {fileID: 6152511013106662883, guid: 633c74e605e8b2f4b823e3eddc6e5569, type: 3}
   spawnPoint: {fileID: 1904684258}
   enemySpawner: {fileID: 746407922}
   lobbyCam: {fileID: 136052701}
@@ -1767,6 +1767,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeStart: 60
   textDisplay: {fileID: 1560360617}
+  congratsScreen: {fileID: 0}
   timeOutScreen: {fileID: 0}
 --- !u!4 &1769738045
 Transform:

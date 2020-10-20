@@ -13,6 +13,7 @@ public class CountdownTimer : MonoBehaviour {
 	public Text textDisplay;
 
 	private static CountdownTimer instance;
+	public GameObject congratsScreen;
 
 	public GameObject timeOutScreen;
 	
@@ -32,7 +33,7 @@ public class CountdownTimer : MonoBehaviour {
 
     void Update() {
         if (timerActive) {
-        	if (timeRemaining > 0) {
+        	if (timeRemaining > 0.0f) {
         		// Display current time
         		UpdateDisplay();
 
@@ -59,7 +60,16 @@ public class CountdownTimer : MonoBehaviour {
 						DisableController((FirstPersonController)script);
 					}
 				}
-			}	
+				
+                //Time.timeScale = 0f;
+                congratsScreen.SetActive(true);
+                Cursor.lockState = CursorLockMode.Confined;
+                PauseMenu.GamePaused = true;
+        	}
+
+            if (timeRemaining >= 6.00f && timeRemaining <= 7.00f) {
+                FindObjectOfType<AudioManager>().Play("Siren");
+            }
         }
     }
 
@@ -77,7 +87,7 @@ public class CountdownTimer : MonoBehaviour {
 		Image image = timeOutScreen.GetComponent<Image>();
 		Color origColor = image.color;
 
-		for(float alpha = 0.0f; alpha <= 1.1f; alpha += 0.1f) {
+		for (float alpha = 0.0f; alpha <= 1.1f; alpha += 0.1f) {
 			image.color = new Color(origColor.r, origColor.g, origColor.b, alpha);
 			yield return new WaitForSeconds(0.1f);
 		}
