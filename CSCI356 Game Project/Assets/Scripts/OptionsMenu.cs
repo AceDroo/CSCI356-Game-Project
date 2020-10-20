@@ -2,14 +2,14 @@
 using UnityEngine.UIElements;
 using UnityEngine.Audio;
 
-public class OptionsMenu : MonoBehaviour
-{
+public class OptionsMenu : MonoBehaviour {
+	public PlayerStats stats;
 
     public AudioMixer audioMixer;
 
     public void setSensitivity(float Sensitivity)
     {
-        PlayerController.turnSpeed = Sensitivity;
+        stats.turnSpeed = Sensitivity;
     }
 
     public void setVolume (float Sound)

@@ -223,11 +223,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c2fb30e14a622546a7745d1d348db61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnSpeed: 4
-  jumpForce: 6
-  sprintSpeed: 8
-  walkSpeed: 4
-  crouchSpeed: 2
+  stats: {fileID: 11400000, guid: 8ab77cceb4a90e348b99212f57f7d65d, type: 2}
+  moveSpeed: 0
 --- !u!54 &6152511013106662904
 Rigidbody:
   m_ObjectHideFlags: 0
