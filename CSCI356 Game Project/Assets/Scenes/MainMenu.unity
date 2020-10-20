@@ -464,6 +464,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1e8c09a40ad232499e829b195d74428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats: {fileID: 0}
   audioMixer: {fileID: 0}
 --- !u!1 &88190359
 GameObject:
@@ -4298,6 +4299,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1e8c09a40ad232499e829b195d74428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats: {fileID: 0}
   audioMixer: {fileID: 0}
 --- !u!1 &1967751807
 GameObject:
@@ -4808,6 +4810,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1e8c09a40ad232499e829b195d74428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats: {fileID: 11400000, guid: 8ab77cceb4a90e348b99212f57f7d65d, type: 2}
   audioMixer: {fileID: 24100000, guid: 279b3462a70bf8a41b2895fdb37bfe31, type: 2}
 --- !u!1 &2049320284
 GameObject:

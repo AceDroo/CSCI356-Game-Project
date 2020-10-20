@@ -3,14 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-    public static float turnSpeed = 1.0f;
-    public float jumpForce = 6.0f;
-    private float moveSpeed;
-    private float sprintSpeed = 3.0f;
-    private float walkSpeed = 1.5f;
-    private float crouchSpeed = 0.5f;
-    private float minTurnAngle = -90.0f;
-    private float maxTurnAngle = 90.0f;
+    public PlayerStats stats;
+    public float moveSpeed;
     private int sprintBar = 100;
     private float rotX;
     private float rotY;
@@ -21,6 +15,7 @@ public class PlayerController : MonoBehaviour {
     private Transform gun;
     private float gunScaleY;
     private Rigidbody rigidBody;
+
     void Start() {
         Cursor.lockState = CursorLockMode.Locked;
         gun = this.transform.GetChild(1);
@@ -34,20 +29,20 @@ public class PlayerController : MonoBehaviour {
     }
     void MouseAiming() {
         // Get mouse inputs
-        rotY = Input.GetAxis("Mouse X") * turnSpeed;
-        rotX += Input.GetAxis("Mouse Y") * turnSpeed;
+        rotY = Input.GetAxis("Mouse X") * stats.turnSpeed;
+        rotX += Input.GetAxis("Mouse Y") * stats.turnSpeed;
 
         // Clamp vertical rotation
-        rotX = Mathf.Clamp(rotX, minTurnAngle, maxTurnAngle);
+        rotX = Mathf.Clamp(rotX, stats.minTurnAngle, stats.maxTurnAngle);
     }
     void KeyboardMovement() {
         //Set movement speed
-        if(Input.GetButton("Sprint") && !crouch && sprintBar > 0){
-            moveSpeed = sprintSpeed;
+        if(Input.GetButton("Sprint") && !crouch && sprintBar > 0) {
+            moveSpeed = stats.sprintSpeed;
         }else if (crouch){
-            moveSpeed = crouchSpeed;
+            moveSpeed = stats.crouchSpeed;
         }else{
-            moveSpeed = walkSpeed;
+            moveSpeed = stats.walkSpeed;
         }
 
         //Crouch/Un-crouch
@@ -70,7 +65,7 @@ public class PlayerController : MonoBehaviour {
             Physics.Raycast(transform.position + new Vector3(-1,0,0), -transform.up, out hit, 1.1f) ||
             Physics.Raycast(transform.position + new Vector3(0,0,1), -transform.up, out hit, 1.1f) ||
             Physics.Raycast(transform.position + new Vector3(0,0,-1), -transform.up, out hit, 1.1f)){
-                rigidBody.AddForce(new Vector3(0,jumpForce,0), ForceMode.Impulse);
+                rigidBody.AddForce(new Vector3(0, stats.jumpForce,0), ForceMode.Impulse);
             }
         }
 
@@ -85,11 +80,13 @@ public class PlayerController : MonoBehaviour {
         }
     }
     void FixedUpdate() {
-        //Move the player
+        // Move the player
         transform.Translate(new Vector3(mvX, 0, mvZ));
-        //Rotate the camera
+
+        // Rotate the camera
         transform.eulerAngles = new Vector3(-rotX, transform.eulerAngles.y + rotY, 0);
-        //fill the sprint bar
+
+        // Fill the sprint bar
         if(!Input.GetButton("Sprint")){
             if (sprintBar < 100){
                 sprintBar++;
@@ -100,9 +97,4 @@ public class PlayerController : MonoBehaviour {
             }
         }
     }
-    
 }
-
-
-// https://gamedevacademy.org/unity-3d-first-and-third-person-view-tutorial
-// https://medium.com/ironequal/unity-character-controller-vs-rigidbody-a1e243591483
