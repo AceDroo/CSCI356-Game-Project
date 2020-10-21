@@ -4,19 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class StartupText : MonoBehaviour {
-	Text text;
-	GlobalSoundManager globalSoundManager;
+	public Text text;
+	public AudioManager audioManager;
+	public GameObject timer;
+	public AudioSource music;
 	int remainSeconds;
-	
-	public AudioClip prepare;
-	public AudioClip gameBegins;
-	public AudioClip beep;
 
 	void Start() {
-		globalSoundManager = GlobalSoundManager.Get();
-		globalSoundManager.Play(prepare);
+		audioManager.Play("Prepare");
 
-		text = GetComponent<Text>();
 		remainSeconds = 10;
 
 		StartCoroutine(StartAnimation());
@@ -24,22 +20,24 @@ public class StartupText : MonoBehaviour {
 
 	IEnumerator StartAnimation() {
 		for(int i = remainSeconds; i > 0; i--) {
-			if(i <= 5) {
-				globalSoundManager.Play(beep);
+			if (i <= 5) {
+				audioManager.Play("Beep");
 			}
 
 			UpdateText(i);
 			yield return new WaitForSeconds(1f);
 		}
 
-		text.text = "FIGHT!";
-		globalSoundManager.Play(gameBegins);
+		text.text = "FIRE!";
+		audioManager.Play("Warning");
+		timer.SetActive(true);
+		music.Play();
 
-		yield return new WaitForSeconds(3f);
-		Destroy(gameObject);
+		yield return new WaitForSeconds(3);
+		Destroy(text);
 	}
 
 	void UpdateText(int sec) {
-		text.text = "Prepare to fight...\nBegins at " + sec + " seconds.";
+		text.text = "Begins in " + sec + " seconds.";
 	}
 }
