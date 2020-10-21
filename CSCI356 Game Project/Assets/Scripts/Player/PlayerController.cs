@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
     public PlayerStats stats;
-    public float moveSpeed;
+    private float moveSpeed;
     private int sprintBar = 100;
     private float rotX;
     private float rotY;
@@ -16,16 +16,25 @@ public class PlayerController : MonoBehaviour {
     private float gunScaleY;
     private Rigidbody rigidBody;
 
+    private bool inControl = true;
+
     void Start() {
         Cursor.lockState = CursorLockMode.Locked;
         gun = this.transform.GetChild(1);
         rigidBody = GetComponent<Rigidbody>();
         Vector3 gunScale = gun.transform.localScale;
         gunScaleY = gunScale.y;
+
+        inControl = false;
     }
     void Update() {
+        // Get mouse aiming
         MouseAiming();
-        KeyboardMovement();
+
+        // If player is in control, allow for movement
+        if (inControl) {
+            KeyboardMovement();
+        }
     }
     void MouseAiming() {
         // Get mouse inputs
@@ -45,20 +54,21 @@ public class PlayerController : MonoBehaviour {
             moveSpeed = stats.walkSpeed;
         }
 
-        //Crouch/Un-crouch
-        if(Input.GetButtonDown("Crouch")){
+        // Crouch/Un-crouch
+        if (Input.GetButtonDown("Crouch")){
             crouch = true;
             transform.localScale += new Vector3(0,-0.5f,0);
             gun.localScale += new Vector3(0,gunScaleY,0);
             transform.localPosition += new Vector3(0,-0.5f,0);
         }
-        if(Input.GetButtonUp("Crouch")){
+        if (Input.GetButtonUp("Crouch")){
             crouch = false;
             transform.localPosition += new Vector3(0,0.5f,0);
             transform.localScale += new Vector3(0,0.5f,0);
             gun.localScale += new Vector3(0,-gunScaleY,0);
         }
-        //Jump when the player is grounded
+
+        // Jump when the player is grounded
         if(Input.GetButtonDown("Jump")){
             RaycastHit hit;
             if(Physics.Raycast(transform.position + new Vector3(1,0,0), -transform.up, out hit, 1.1f) ||
@@ -69,11 +79,11 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
-        //Set move vectors
+        // Set move vectors
         mvX = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
         mvZ = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
 
-        //Fix diagonal movement speed
+        // Fix diagonal movement speed
         if(Input.GetAxis("Horizontal") != 0 && Input.GetAxis("Vertical") != 0){
             mvX /= 2;
             mvY /= 2;
@@ -96,5 +106,8 @@ public class PlayerController : MonoBehaviour {
                 sprintBar--;
             }
         }
+    }
+    public void SetPlayerControl() {
+        inControl = !inControl;
     }
 }
