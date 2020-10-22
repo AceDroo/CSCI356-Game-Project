@@ -11,8 +11,10 @@ public class CountdownTimer : MonoBehaviour {
 	bool isDestroyed = false; 
 
 	public Text textDisplay;
+    public Text score;
+    static public int points;
 
-	private static CountdownTimer instance;
+    private static CountdownTimer instance;
 	public GameObject congratsScreen;
 
 	public GameObject timeOutScreen;
@@ -29,6 +31,7 @@ public class CountdownTimer : MonoBehaviour {
     	// Set initial variables
     	timeRemaining = timeStart;
         timerActive = true;
+        points = 0;
     }
 
     void Update() {
@@ -62,6 +65,19 @@ public class CountdownTimer : MonoBehaviour {
 				}
 				
                 //Time.timeScale = 0f;
+
+                //Scoreboard
+                int i = 6;
+                ScoreMenuScript.HighScoreArray[i] = points;
+                while (ScoreMenuScript.HighScoreArray[i] > ScoreMenuScript.HighScoreArray[i-1])
+                {
+                    int t = ScoreMenuScript.HighScoreArray[i];
+                    ScoreMenuScript.HighScoreArray[i] = ScoreMenuScript.HighScoreArray[i - 1];
+                    ScoreMenuScript.HighScoreArray[i - 1] = t;
+                    i--;
+                }
+                Debug.Log(points.ToString());
+                score.text = points.ToString();
                 congratsScreen.SetActive(true);
                 Cursor.lockState = CursorLockMode.Confined;
                 PauseMenu.GamePaused = true;

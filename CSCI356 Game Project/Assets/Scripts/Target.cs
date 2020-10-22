@@ -12,6 +12,7 @@ public class Target : MonoBehaviour {
     	}
     }
     void KillTarget() {
+        CountdownTimer.points += 100;
     	Destroy(gameObject);
     }
 }
