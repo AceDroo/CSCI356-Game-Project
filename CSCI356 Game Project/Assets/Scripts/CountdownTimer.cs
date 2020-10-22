@@ -26,7 +26,7 @@ public class CountdownTimer : MonoBehaviour {
     	// Set initial variables
     	timeRemaining = timeStart;
         timerActive = true;
-        points = 1;
+        points = 0;
     }
 
     void Update() {
