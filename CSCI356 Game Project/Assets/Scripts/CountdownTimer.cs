@@ -48,7 +48,7 @@ public class CountdownTimer : MonoBehaviour {
                 //Scoreboard
                 int i = 6;
                 ScoreMenuScript.HighScoreArray[i] = points;
-                while (ScoreMenuScript.HighScoreArray[i] > ScoreMenuScript.HighScoreArray[i-1])
+                while ((i >= 1) && (ScoreMenuScript.HighScoreArray[i] > ScoreMenuScript.HighScoreArray[i-1]))
                 {
                     int t = ScoreMenuScript.HighScoreArray[i];
                     ScoreMenuScript.HighScoreArray[i] = ScoreMenuScript.HighScoreArray[i - 1];
