@@ -26,7 +26,7 @@ public class CountdownTimer : MonoBehaviour {
     	// Set initial variables
     	timeRemaining = timeStart;
         timerActive = true;
-        points = 0;
+        points = 1;
     }
 
     void Update() {
@@ -53,6 +53,7 @@ public class CountdownTimer : MonoBehaviour {
                     int t = ScoreMenuScript.HighScoreArray[i];
                     ScoreMenuScript.HighScoreArray[i] = ScoreMenuScript.HighScoreArray[i - 1];
                     ScoreMenuScript.HighScoreArray[i - 1] = t;
+                    i--;
                 }
                 Debug.Log(points.ToString());
                 score.text = points.ToString();
