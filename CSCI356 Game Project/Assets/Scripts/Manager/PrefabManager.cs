@@ -26,6 +26,6 @@ public class PrefabManager: MonoBehaviour {
 	}
 
 	public static PrefabManager GetInstance() {
-		return GameObject.Find("PrefabManager").GetComponent<PrefabManager>();
+		return GameObject.Find("Prefab Manager").GetComponent<PrefabManager>();
 	}
 }

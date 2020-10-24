@@ -29,10 +29,7 @@ public class EnemySpawner : MonoBehaviour {
 	[SerializeField]
 	private int currentEXP;
 	[SerializeField]
-	private int currentFund;
-
-	private NetworkManager networkManager;
-	
+	private int currentFund;	
 	
 	private float spawnTimer;
 
@@ -46,10 +43,10 @@ public class EnemySpawner : MonoBehaviour {
 		currentEXP = startEXP;
 		currentFund = startFund;
 
+		target = GameObject.Find("Player");
+
 		prefabManager = PrefabManager.GetInstance();
 		enemies.Add(prefabManager.GetPrefab("Zombie"));
-
-		networkManager = GameObject.Find("GameManager").GetComponent<NetworkManager>();
 	}
 
 	void Update() {
@@ -72,23 +69,6 @@ public class EnemySpawner : MonoBehaviour {
 		return Vector3.Distance(src, dist);
 	}
 
-	// GameObject getClosestPlayer(Transform spawnPoint) {
-	// 	float minDist = 10000000f;
-	// 	GameObject closestTarget = null;
-	// 	List<GameObject> players = networkManager.Players;
-
-	// 	foreach(GameObject player in players) {
-	// 		float dist = GetDistanceFrom(spawnPoint.position, player.transform.position);
-			
-	// 		if(dist < minDist) {
-	// 			minDist = dist;
-	// 			closestTarget = player;
-	// 		}
-	// 	}
-
-	// 	return closestTarget;
-	// }
-
 	void SpawnEnemy() {
 		if(spawnTimer < respawnDuration) return;
 
@@ -106,7 +86,6 @@ public class EnemySpawner : MonoBehaviour {
 			rotateSpeed = Mathf.Max(rotateSpeed, 200f);	// Max 200f
 			zombie.GetComponent<NavMeshAgent>().angularSpeed = rotateSpeed;
 
-			// PhotonNetwork.Instantiate("Zombie", spawnPoint.transform.position, spawnPoint.transform.rotation, 0);
 			Instantiate(zombie, spawnPoint.transform.position, spawnPoint.transform.rotation);
 		}
 		
