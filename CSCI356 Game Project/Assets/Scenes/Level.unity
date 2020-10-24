@@ -2347,6 +2347,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: {fileID: 263978227}
   audioManager: {fileID: 1411823891}
+  timer: {fileID: 1680772416}
   healthUI: {fileID: 795283802}
   staminaUI: {fileID: 1451505678}
   music: {fileID: 434358435}

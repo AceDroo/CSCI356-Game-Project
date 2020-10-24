@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class StartupText : MonoBehaviour {
 	public Text text;
 	public AudioManager audioManager;
+	public GameObject timer;
 	public GameObject healthUI;
 	public GameObject staminaUI;
 	public AudioSource music;
@@ -32,6 +33,7 @@ public class StartupText : MonoBehaviour {
 
 		text.text = "FIRE!";
 		audioManager.Play("Warning");
+		timer.SetActive(true);
 		healthUI.SetActive(true);
 		staminaUI.SetActive(true);
 		music.Play();
