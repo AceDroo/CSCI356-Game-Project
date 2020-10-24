@@ -14,6 +14,7 @@ public class StartupText : MonoBehaviour {
 	int remainSeconds;
 
 	void Start() {
+		player = FindObjectOfType<PlayerController>();
 		audioManager.Play("Prepare");
 
 		remainSeconds = 10;
