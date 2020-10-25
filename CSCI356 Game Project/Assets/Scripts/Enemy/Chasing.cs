@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class Chasing : MonoBehaviour {
-	NetworkManager networkManager;
+	WorldManager networkManager;
 	Animator animator;
 	HealthManager healthManager;
 	NavMeshAgent agent;
@@ -26,7 +26,7 @@ public class Chasing : MonoBehaviour {
 		agent = GetComponent<NavMeshAgent>();
 		audioSource = GetComponent<AudioSource>();
 
-		networkManager = GameObject.Find("GameManager").GetComponent<NetworkManager>();
+		networkManager = GameObject.Find("WorldManager").GetComponent<WorldManager>();
 	}
 
 	IEnumerator distUpdateCo = null;
@@ -37,39 +37,35 @@ public class Chasing : MonoBehaviour {
 
 		if(!healthManager.IsDead) {
 			if(!isAttacking) {
-				// NetworkPlayer targetNetworkPlayer = target.GetComponent<NetworkPlayer>();
+				float distance = GetActualDistanceFromTarget();
 
-				// if(targetNetworkPlayer.IsLocalPlayer) {
-					float distance = GetActualDistanceFromTarget();
-
-					// Reduce calculation of path finding
-					if(distance <= 20f) {
-						if(distUpdateCo != null) {
-							StopCoroutine(distUpdateCo);
-						}
-
-						isInLateUpdate = false;
-						agent.destination = target.transform.position;
+				// Reduce calculation of path finding
+				if(distance <= 20f) {
+					if(distUpdateCo != null) {
+						StopCoroutine(distUpdateCo);
 					}
-					else if(!isInLateUpdate) {
-						if(distance <= 40f) {
-							distUpdateCo = LateDistanceUpdate(2f);
-							StartCoroutine(distUpdateCo);
-						}
-						else if(distance <= 60) {
-							distUpdateCo = LateDistanceUpdate(3f);
-							StartCoroutine(distUpdateCo);
-						}
-						else if(distance <= 80) {
-							distUpdateCo = LateDistanceUpdate(4f);
-							StartCoroutine(distUpdateCo);
-						}
-						else {
-							distUpdateCo = LateDistanceUpdate(5f);
-							StartCoroutine(distUpdateCo);
-						}
+
+					isInLateUpdate = false;
+					agent.destination = target.transform.position;
+				}
+				else if(!isInLateUpdate) {
+					if(distance <= 40f) {
+						distUpdateCo = LateDistanceUpdate(2f);
+						StartCoroutine(distUpdateCo);
 					}
-				// }
+					else if(distance <= 60) {
+						distUpdateCo = LateDistanceUpdate(3f);
+						StartCoroutine(distUpdateCo);
+					}
+					else if(distance <= 80) {
+						distUpdateCo = LateDistanceUpdate(4f);
+						StartCoroutine(distUpdateCo);
+					}
+					else {
+						distUpdateCo = LateDistanceUpdate(5f);
+						StartCoroutine(distUpdateCo);
+					}
+				}
 			}
 
 			animator.SetFloat("SpeedMultiplier", agent.speed);
@@ -155,7 +151,6 @@ public class Chasing : MonoBehaviour {
 
 	IEnumerator RemoveGameObject() {
 		yield return new WaitForSeconds(5f);
-		// PhotonNetwork.Destroy(gameObject);
 		Destroy(gameObject);
 	}
 }

@@ -43,7 +43,7 @@ public class EnemySpawner : MonoBehaviour {
 		currentEXP = startEXP;
 		currentFund = startFund;
 
-		target = GameObject.Find("Player");
+		//target = GameObject.Find("Player");
 
 		prefabManager = PrefabManager.GetInstance();
 		enemies.Add(prefabManager.GetPrefab("Zombie"));
