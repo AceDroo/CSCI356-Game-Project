@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StartupText : MonoBehaviour {
+public class StartupManager : MonoBehaviour {
 	public Text text;
 	public AudioManager audioManager;
+	public WorldManager worldManager;
 	public GameObject timer;
 	public GameObject healthUI;
 	public GameObject staminaUI;
 	public AudioSource music;
-	public PlayerController player;
+	private PlayerController player;
 	int remainSeconds;
 
 	void Start() {
-		player = FindObjectOfType<PlayerController>();
 		audioManager.Play("Prepare");
+		player = FindObjectsOfType<PlayerController>()[0];
 
 		remainSeconds = 10;
 
@@ -38,6 +39,9 @@ public class StartupText : MonoBehaviour {
 		healthUI.SetActive(true);
 		staminaUI.SetActive(true);
 		music.Play();
+
+		//player = worldManager.GetComponent<WorldManager>().GetPlayer().GetComponent<PlayerController>();
+
 		player.SetPlayerControl();
 
 		yield return new WaitForSeconds(3);

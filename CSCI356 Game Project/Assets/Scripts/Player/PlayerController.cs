@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour {
     private float gunScaleY;
     private Rigidbody rigidBody;
 
-    private bool inControl = true;
+    public bool inControl = true;
 
     void Start() {
         Cursor.lockState = CursorLockMode.Locked;
@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour {
         MouseAiming();
 
         // If player is in control, allow for movement
-        if (inControl) {
+        if (inControl == true) {
             KeyboardMovement();
         }
     }

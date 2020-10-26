@@ -43,7 +43,7 @@ public class EnemySpawner : MonoBehaviour {
 		currentEXP = startEXP;
 		currentFund = startFund;
 
-		//target = GameObject.Find("Player");
+		target = GameObject.Find("Player");
 
 		prefabManager = PrefabManager.GetInstance();
 		enemies.Add(prefabManager.GetPrefab("Zombie"));
@@ -110,3 +110,11 @@ public class EnemySpawner : MonoBehaviour {
 		upgradeTimer = 0;
 	}
 }
+
+// ArgumentOutOfRangeException: Index was out of range. Must be non-negative and less than the size of the collection.
+// Parameter name: index
+// System.ThrowHelper.ThrowArgumentOutOfRangeException (System.ExceptionArgument argument, System.ExceptionResource resource) (at <fb001e01371b4adca20013e0ac763896>:0)
+// System.ThrowHelper.ThrowArgumentOutOfRangeException () (at <fb001e01371b4adca20013e0ac763896>:0)
+// System.Collections.Generic.List`1[T].get_Item (System.Int32 index) (at <fb001e01371b4adca20013e0ac763896>:0)
+// EnemySpawner.SpawnEnemy () (at Assets/Scripts/Enemy/EnemySpawner.cs:76)
+// EnemySpawner.Update () (at Assets/Scripts/Enemy/EnemySpawner.cs:57)
