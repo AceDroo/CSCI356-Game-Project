@@ -31,6 +31,17 @@ public class Target : HealthManager
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         timer = wanderTimer;
+
+        Debug.Log(agent.isOnNavMesh);
+
+        if (agent.enabled && !agent.isOnNavMesh)
+        {
+            var position = transform.position;
+            NavMeshHit hit;
+            NavMesh.SamplePosition(position, out hit, 10.0f, NavMesh.AllAreas);
+            position = hit.position; // usually this barely changes, if at all
+            agent.Warp(position);
+        }
     }
 
 	void Update() {
@@ -146,3 +157,5 @@ public class Target : HealthManager
 
 /// https://forum.unity.com/threads/solved-random-wander-ai-using-navmesh.327950/
 /// /// https://www.youtube.com/watch?v=RXB7wKSoupI
+/// https://docs.unity3d.com/540/Documentation/ScriptReference/NavMesh.SamplePosition.html
+/// https://forum.unity.com/threads/failed-to-create-agent-because-it-is-not-close-enough-to-the-navmesh.500553/

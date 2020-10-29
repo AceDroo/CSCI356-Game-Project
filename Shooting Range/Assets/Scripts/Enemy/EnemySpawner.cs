@@ -51,5 +51,6 @@ public class EnemySpawner : MonoBehaviour
 
     	// Reset timer
     	spawnTimer = 0f;
+        respawnDuration = respawnDuration + (respawnDuration * 1.5f);
     }
 }

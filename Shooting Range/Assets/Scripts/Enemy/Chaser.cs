@@ -37,6 +37,17 @@ public class Chaser : HealthManager
         target = GameObject.Find("Player");
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+
+        Debug.Log(agent.isOnNavMesh);
+
+        if (agent.enabled && !agent.isOnNavMesh)
+        {
+            var position = transform.position;
+            NavMeshHit hit;
+            NavMesh.SamplePosition(position, out hit, 10.0f, NavMesh.AllAreas);
+            position = hit.position; // usually this barely changes, if at all
+            agent.Warp(position);
+        }
     }
 
     void Update() 
@@ -68,10 +79,10 @@ public class Chaser : HealthManager
                     if (agent.path.status == NavMeshPathStatus.PathComplete)
                     {
                         // Get course-corrected target position
-                        targetPos = target.transform.position + agent.velocity * Time.deltaTime;
+                        //targetPos = target.transform.position + agent.velocity * Time.deltaTime;
 
                         // Set the destination to the target position
-                        agent.SetDestination(targetPos);
+                        agent.SetDestination(target.transform.position);
 
                         // Turn to face player
                         transform.LookAt(target.transform);
