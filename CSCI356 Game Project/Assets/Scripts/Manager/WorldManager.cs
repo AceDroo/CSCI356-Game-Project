@@ -4,18 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class WorldManager : MonoBehaviour {
-	public GameObject playerPrefab;
 	public Transform spawnPoint;
 	public GameObject enemySpawner;
 
 	[SerializeField] List<GameObject> players = new List<GameObject>();
+	public GameObject player;
 	public Text startupText;
 	public AudioManager audioManager;
 	public GameObject timerUI;
 	public GameObject healthUI;
 	public GameObject staminaUI;
 	public AudioSource music;
-	public PlayerController player;
+	public GameObject gameUI;
 
 	public int remainSeconds;
 
@@ -23,8 +23,7 @@ public class WorldManager : MonoBehaviour {
 
 	void Start() {
 		// Initialise the player
-		playerObj = Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
-		player = playerObj.GetComponent<PlayerController>();
+		playerObj = Instantiate(player, spawnPoint.position, spawnPoint.rotation);
 
 		audioManager.Play("Prepare");
 
@@ -33,6 +32,9 @@ public class WorldManager : MonoBehaviour {
 
 		// Begin start countdown
 		StartCoroutine(StartAnimation());
+		gameUI.SetActive(true);
+		enemySpawner.SetActive(true);
+		enemySpawner.GetComponent<EnemySpawner>().target = playerObj;
 	}
 
 	IEnumerator StartAnimation() {
