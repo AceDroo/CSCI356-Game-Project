@@ -38,7 +38,7 @@ public class CountdownTimer : MonoBehaviour
         	}
 
         	// Play siren
-        	if (timeRemaining >= 6.00f && timeRemaining <= 7.00f)
+        	if (timeRemaining >= 9.00f && timeRemaining <= 11.00f)
         	{
         		AudioManager.Instance.Play("Siren");
         	}

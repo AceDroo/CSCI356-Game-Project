@@ -9,12 +9,16 @@ public class GunManager : MonoBehaviour
 	public Transform gunEnd;
     public AudioManager audioManager;
 
+    private Vector3 originalRotation;
+    public Vector3 upRecoil;
+
 	private LineRenderer laserLine;
 	private float timeToFire = 0f;
 
     // Start is called before the first frame update
     void Start()
     {
+        originalRotation = transform.localEulerAngles;
         laserLine = GetComponent<LineRenderer>();
         audioManager = AudioManager.Instance.GetComponent<AudioManager>();
     }
@@ -32,7 +36,10 @@ public class GunManager : MonoBehaviour
         	timeToFire = Time.time + 1f  / stats.fireRate;
             StartCoroutine(ShotEffect());
         	Shoot();
+            AddRecoil();
             audioManager.Play("GunSound");
+        } else {
+            StopRecoil();
         }
     }
     void Shoot() 
@@ -45,7 +52,8 @@ public class GunManager : MonoBehaviour
         Vector3 rayOrigin = gameCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
 
     	// If object has been hit by raycast, deal damage
-    	if (Physics.Raycast(rayOrigin, gameCamera.transform.forward, out hit, stats.range)) {
+    	if (Physics.Raycast(rayOrigin, gameCamera.transform.forward, out hit, stats.range)) 
+        {
     		// Draw laser line
             laserLine.SetPosition(1, hit.point);
 
@@ -54,27 +62,41 @@ public class GunManager : MonoBehaviour
             Chaser chaser = hit.transform.GetComponent<Chaser>();
 
             // Deal damage to target
-    		if (target != null) {
-                Debug.Log("Hit Target!");
-    			target.ApplyDamage(stats.damage);
+    		if (target != null) 
+            {
+                target.ApplyDamage(stats.damage);
     		}
 
-            if (chaser != null) {
-                Debug.Log("Hit Chaser!");
+            if (chaser != null) 
+            {
                 chaser.ApplyDamage(stats.damage);
             }
 
             // Apply force to hit object
-            if (hit.rigidbody != null) {
+            if (hit.rigidbody != null) 
+            {
                 hit.rigidbody.AddForce(-hit.normal * stats.hitForce);
             }
-    	} else {
+    	} 
+        else 
+        {
             laserLine.SetPosition(1, rayOrigin + (gameCamera.transform.forward * stats.range));
         }
     }
-    private IEnumerator ShotEffect() {
+    private IEnumerator ShotEffect() 
+    {
         laserLine.enabled = true;
         yield return stats.fireRate;
         laserLine.enabled = false;
+    }
+
+    private void AddRecoil()
+    {
+        transform.localEulerAngles += upRecoil;
+    }
+
+    private void StopRecoil()
+    {
+        transform.localEulerAngles = originalRotation;
     }
 }

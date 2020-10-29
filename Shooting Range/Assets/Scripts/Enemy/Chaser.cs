@@ -59,20 +59,16 @@ public class Chaser : HealthManager
 
             if (!isAttacking) 
             {
-                if (agent.path.status == NavMeshPathStatus.PathComplete)
+                // Calculate distance between player and enemy
+                float distance = (target.transform.position - transform.position).sqrMagnitude;
+
+                // Check if within range
+                if (distance <= chaseDistance)
                 {
-                    Debug.Log("Found path!");
-
-                    // Calculate distance between player and enemy
-                    float distance = (target.transform.position - transform.position).sqrMagnitude;
-
-                    // Check if within range
-                    if (distance <= chaseDistance)
+                    if (agent.path.status == NavMeshPathStatus.PathComplete)
                     {
                         // Get course-corrected target position
                         targetPos = target.transform.position + agent.velocity * Time.deltaTime;
-
-                        Debug.Log(targetPos);
 
                         // Set the destination to the target position
                         agent.SetDestination(targetPos);
@@ -83,10 +79,10 @@ public class Chaser : HealthManager
                         // Enter walk mode
                         animator.SetTrigger("Walk");
                     }
-                }
-                else
-                {
-                    agent.isStopped = true;
+                    else
+                    {
+                        agent.isStopped = true;
+                    }
                 }
             }
 
