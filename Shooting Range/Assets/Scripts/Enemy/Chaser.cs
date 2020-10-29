@@ -62,7 +62,7 @@ public class Chaser : HealthManager
                 if (agent.path.status == NavMeshPathStatus.PathComplete)
                 {
                     Debug.Log("Found path!");
-                    
+
                     // Calculate distance between player and enemy
                     float distance = (target.transform.position - transform.position).sqrMagnitude;
 
@@ -71,6 +71,8 @@ public class Chaser : HealthManager
                     {
                         // Get course-corrected target position
                         targetPos = target.transform.position + agent.velocity * Time.deltaTime;
+
+                        Debug.Log(targetPos);
 
                         // Set the destination to the target position
                         agent.SetDestination(targetPos);
