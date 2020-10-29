@@ -77,6 +77,7 @@
      <Compile Include="Assets\Scripts\Menus\ScoreMenu.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerStats.cs" />
+     <Compile Include="Assets\Scripts\RotateToPlayer.cs" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
@@ -633,31 +634,31 @@
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.2f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Timeline.Editor">
- <HintPath>B:/Shooting Range/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+ <HintPath>B:/Uni Projects/CSCI356-Game-Project/Shooting Range/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.VSCode.Editor">
- <HintPath>B:/Shooting Range/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+ <HintPath>B:/Uni Projects/CSCI356-Game-Project/Shooting Range/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>B:/Shooting Range/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ <HintPath>B:/Uni Projects/CSCI356-Game-Project/Shooting Range/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
- <HintPath>B:/Shooting Range/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+ <HintPath>B:/Uni Projects/CSCI356-Game-Project/Shooting Range/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Timeline">
- <HintPath>B:/Shooting Range/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+ <HintPath>B:/Uni Projects/CSCI356-Game-Project/Shooting Range/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
  </Reference>
  <Reference Include="Unity.CollabProxy.Editor">
- <HintPath>B:/Shooting Range/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+ <HintPath>B:/Uni Projects/CSCI356-Game-Project/Shooting Range/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Rider.Editor">
- <HintPath>B:/Shooting Range/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+ <HintPath>B:/Uni Projects/CSCI356-Game-Project/Shooting Range/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro">
- <HintPath>B:/Shooting Range/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ <HintPath>B:/Uni Projects/CSCI356-Game-Project/Shooting Range/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.UI">
- <HintPath>B:/Shooting Range/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+ <HintPath>B:/Uni Projects/CSCI356-Game-Project/Shooting Range/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
