@@ -777,7 +777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab4b76e287b0624697dbb0b71a88afb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 6152511013106662883, guid: 633c74e605e8b2f4b823e3eddc6e5569, type: 3}
+  target: {fileID: 0}
   damage: 15
   isAttacking: 0
   shouldChase: 1
