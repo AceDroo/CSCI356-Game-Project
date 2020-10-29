@@ -8,6 +8,7 @@ public class WorldManager : MonoBehaviour {
 	public Transform spawnPoint;
 	public GameObject enemySpawner;
 
+	[SerializeField] List<GameObject> players = new List<GameObject>();
 	public Text startupText;
 	public AudioManager audioManager;
 	public GameObject timerUI;

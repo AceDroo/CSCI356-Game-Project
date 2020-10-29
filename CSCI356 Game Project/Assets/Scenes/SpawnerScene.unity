@@ -1451,20 +1451,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 1391472435}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 000bbc68e66434276a2a797478591e1e, type: 3}
+  m_Script: {fileID: 11500000, guid: a3b665fd2af8f354c8ec3be07f3f194d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: v0.0.1
-  roomName: Spawner-test
-  playerName: Player
-  players: []
-  player: {fileID: 6152511013106662883, guid: 633c74e605e8b2f4b823e3eddc6e5569, type: 3}
-  spawnPoint: {fileID: 1904684258}
-  enemySpawner: {fileID: 746407922}
-  lobbyCam: {fileID: 136052701}
-  lobbyUI: {fileID: 798671977}
-  inGameUI: {fileID: 1603720157}
-  statusText: {fileID: 0}
+  playerPrefab: {fileID: 0}
+  spawnPoint: {fileID: 0}
+  enemySpawner: {fileID: 0}
+  startupText: {fileID: 0}
+  audioManager: {fileID: 0}
+  timerUI: {fileID: 0}
+  healthUI: {fileID: 0}
+  staminaUI: {fileID: 0}
+  music: {fileID: 0}
+  player: {fileID: 0}
+  remainSeconds: 0
 --- !u!4 &1391472437
 Transform:
   m_ObjectHideFlags: 0
@@ -1767,6 +1767,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeStart: 60
   textDisplay: {fileID: 1560360617}
+  score: {fileID: 0}
   congratsScreen: {fileID: 0}
   timeOutScreen: {fileID: 0}
 --- !u!4 &1769738045

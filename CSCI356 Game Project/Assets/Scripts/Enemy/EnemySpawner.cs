@@ -29,8 +29,10 @@ public class EnemySpawner : MonoBehaviour {
 	[SerializeField]
 	private int currentEXP;
 	[SerializeField]
-	private int currentFund;	
-	
+	private int currentFund;
+
+	private WorldManager worldManager;
+
 	private float spawnTimer;
 
 	private PrefabManager prefabManager;
@@ -43,10 +45,10 @@ public class EnemySpawner : MonoBehaviour {
 		currentEXP = startEXP;
 		currentFund = startFund;
 
-		target = GameObject.Find("Player");
-
 		prefabManager = PrefabManager.GetInstance();
 		enemies.Add(prefabManager.GetPrefab("Zombie"));
+
+		worldManager = GameObject.Find("WorldManager").GetComponent<WorldManager>();
 	}
 
 	void Update() {
