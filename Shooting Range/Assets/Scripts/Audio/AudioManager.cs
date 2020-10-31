@@ -26,7 +26,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public virtual void Awake()
+    public void Awake()
     {
         if (instance == null)
         {
