@@ -2,10 +2,43 @@
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class AudioManager : Singleton<AudioManager>
+public class AudioManager : MonoBehaviour
 {
 	public AudioMixerGroup mixerGroup;
 	public Sound[] sounds;
+
+    #region Singleton
+    private static AudioManager instance;
+    public static AudioManager Instance 
+    {
+        get {
+            if (instance == null) 
+            {
+                instance = FindObjectOfType<AudioManager>();
+                if (instance == null) 
+                {
+                    GameObject obj = new GameObject();
+                    obj.name = typeof(AudioManager).Name;
+                    instance = obj.AddComponent<AudioManager>();
+                }
+            }
+            return instance;
+        }
+    }
+
+    public virtual void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    #endregion
 
     // Start is called before the first frame update
     void Start()
