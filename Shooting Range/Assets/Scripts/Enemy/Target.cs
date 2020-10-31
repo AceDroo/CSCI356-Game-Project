@@ -12,8 +12,7 @@ public class Target : HealthManager
     Animator animator;
 
 	// Visual component for taking damage
-	public float shakeDelay = 0.002f;
-	private float shakeIntensity = 0.03f;
+	public ShakeInfo shakeInfo;
 	private float tempShakeIntensity = 0;
 	private bool shaking = false;
 
@@ -39,7 +38,7 @@ public class Target : HealthManager
             var position = transform.position;
             NavMeshHit hit;
             NavMesh.SamplePosition(position, out hit, 10.0f, NavMesh.AllAreas);
-            position = hit.position; // usually this barely changes, if at all
+            position = hit.position;
             agent.Warp(position);
         }
     }
@@ -48,15 +47,15 @@ public class Target : HealthManager
 		// If true, perform shaking
 		if (shaking) {
 			//Calculate both linear and rotational displacement
-            Vector3 movement = new Vector3(originalPos.x ,originalPos.y,originalPos.z + (Random.Range(-shakeIntensity, shakeIntensity) ));
-            Vector3 rotation = new Vector3(originalRot.x, originalRot.y + (1 + Random.Range(-shakeIntensity, 1 + shakeIntensity)), originalRot.z  );
+            Vector3 movement = new Vector3(originalPos.x ,originalPos.y,originalPos.z + (Random.Range(-shakeInfo.shakeIntensity, shakeInfo.shakeIntensity) ));
+            Vector3 rotation = new Vector3(originalRot.x, originalRot.y + (1 + Random.Range(-shakeInfo.shakeIntensity, 1 + shakeInfo.shakeIntensity)), originalRot.z);
 
             //Displace
             transform.position = movement;
             transform.Rotate(rotation);
 
             //Shake gets smaller as it continues
-            tempShakeIntensity -= shakeDelay;
+            tempShakeIntensity -= shakeInfo.shakeDelay;
 		} 
         else 
         {
@@ -132,7 +131,7 @@ public class Target : HealthManager
     void Shake() 
     {
     	// Reset max displacement of "shake" feature
-    	tempShakeIntensity = shakeIntensity;
+    	tempShakeIntensity = shakeInfo.shakeIntensity;
 
     	// Commence coroutine
     	StartCoroutine("ShakeNow");
@@ -154,8 +153,3 @@ public class Target : HealthManager
         transform.rotation = originalRot;		// Modify with transform.parent.rotation if need be
     }
 }
-
-/// https://forum.unity.com/threads/solved-random-wander-ai-using-navmesh.327950/
-/// /// https://www.youtube.com/watch?v=RXB7wKSoupI
-/// https://docs.unity3d.com/540/Documentation/ScriptReference/NavMesh.SamplePosition.html
-/// https://forum.unity.com/threads/failed-to-create-agent-because-it-is-not-close-enough-to-the-navmesh.500553/

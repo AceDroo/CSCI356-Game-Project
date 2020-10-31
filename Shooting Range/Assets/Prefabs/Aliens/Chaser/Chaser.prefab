@@ -201,7 +201,7 @@ MonoBehaviour:
   health: 150
   destroyedVersion: {fileID: 5047961294500507793, guid: 006eb526c6eda754c917eba1e48d9916,
     type: 3}
-  shakeDelay: 0.002
+  shakeInfo: {fileID: 11400000, guid: 78bbd0e7ea41ff94e8b62e8fdef4923d, type: 2}
   target: {fileID: 6914080264822731652, guid: 8d7ae97e7e6f12240b21201b70a51ffc, type: 3}
   damage: 10
   chaseDistance: 20

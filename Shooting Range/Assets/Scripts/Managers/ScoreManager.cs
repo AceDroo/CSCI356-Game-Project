@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-// WANT IT TO BE A SINGLETON REEEEEE
 public class ScoreManager : MonoBehaviour
 {
 	public TMP_Text textDisplay;

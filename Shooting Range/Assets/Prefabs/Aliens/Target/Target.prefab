@@ -2635,7 +2635,7 @@ MonoBehaviour:
   health: 50
   destroyedVersion: {fileID: 589176560299366991, guid: 44f34ed633db113468f601c0fec00c05,
     type: 3}
-  shakeDelay: 0.002
+  shakeInfo: {fileID: 11400000, guid: 9a365d62b4e9ab54f9cff1a0030e5a3c, type: 2}
   wanderTimer: 10
   wanderRadius: 50
 --- !u!195 &-5410438637105661980

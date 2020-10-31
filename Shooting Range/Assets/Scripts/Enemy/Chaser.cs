@@ -9,8 +9,7 @@ public class Chaser : HealthManager
     public GameObject destroyedVersion;
 
     // Visual component for taking damage
-    public float shakeDelay = 0.002f;
-    private float shakeIntensity = 0.03f;
+    public ShakeInfo shakeInfo;
     private float tempShakeIntensity = 0;
     private bool shaking = false;
 
@@ -22,8 +21,7 @@ public class Chaser : HealthManager
     public float damage = 15.0f;
     public float chaseDistance = 20.0f;
     public float attackDistance = 2.0f;
-    public bool isAttacking = false;
-    public bool shouldChase = true;
+    private bool isAttacking = false;
 
     private float distance;
     private Vector3 targetPos;
@@ -45,7 +43,7 @@ public class Chaser : HealthManager
             var position = transform.position;
             NavMeshHit hit;
             NavMesh.SamplePosition(position, out hit, 10.0f, NavMesh.AllAreas);
-            position = hit.position; // usually this barely changes, if at all
+            position = hit.position;
             agent.Warp(position);
         }
     }
@@ -57,15 +55,15 @@ public class Chaser : HealthManager
         {
             if (shaking) {
                 //Calculate both linear and rotational displacement
-                Vector3 movement = new Vector3(originalPos.x ,originalPos.y,originalPos.z + (Random.Range(-shakeIntensity, shakeIntensity) ));
-                Vector3 rotation = new Vector3(originalRot.x, originalRot.y + (1 + Random.Range(-shakeIntensity, 1 + shakeIntensity)), originalRot.z  );
+                Vector3 movement = new Vector3(originalPos.x ,originalPos.y,originalPos.z + (Random.Range(-shakeInfo.shakeIntensity, shakeInfo.shakeIntensity)));
+                Vector3 rotation = new Vector3(originalRot.x, originalRot.y + (1 + Random.Range(-shakeInfo.shakeIntensity, 1 + shakeInfo.shakeIntensity)), originalRot.z);
 
                 //Displace
                 transform.position = movement;
                 transform.Rotate(rotation);
 
                 //Shake gets smaller as it continues
-                tempShakeIntensity -= shakeDelay;
+                tempShakeIntensity -= shakeInfo.shakeDelay;
             }
 
             if (!isAttacking) 
@@ -118,7 +116,6 @@ public class Chaser : HealthManager
         {
             // Enter attack state
             isAttacking = true;
-            shouldChase = false;
 
             // Update speed
             origSpeed = agent.speed;
@@ -145,7 +142,6 @@ public class Chaser : HealthManager
         yield return new WaitForSeconds(1.4f);
 
         isAttacking = false;
-        shouldChase = true;
 
         if(!IsDead) {
             agent.speed = origSpeed;
@@ -196,7 +192,7 @@ public class Chaser : HealthManager
     void Shake() 
     {
         // Reset max displacement of "shake" feature
-        tempShakeIntensity = shakeIntensity;
+        tempShakeIntensity = shakeInfo.shakeIntensity;
 
         // Commence coroutine
         StartCoroutine("ShakeNow");

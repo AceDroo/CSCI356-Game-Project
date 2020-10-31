@@ -8,11 +8,6 @@ public class SprintManager : MonoBehaviour
     private bool sprintActive = false;
     private float sprintBar = 100.0f;
 
-    void Update() 
-    {
-    	
-    }
-
     void FixedUpdate() {
         if (sprintActive) {
         	if (sprintBar < 100)

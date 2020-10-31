@@ -8,7 +8,6 @@ public class EnemySpawner : MonoBehaviour
 	public float respawnDuration = 30f;
 	public List<GameObject> spawnPoints = new List<GameObject>();
 	public List<GameObject> enemyTypes = new List<GameObject>();
-	public GameObject target;
 
 	private float spawnTimer;
 
