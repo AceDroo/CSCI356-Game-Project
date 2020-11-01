@@ -1075,7 +1075,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1826314783957537924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5237,14 +5237,15 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Forward - W           Jump - Space
+  m_text: 'Forward - W          Jump - Space
 
-    Left - A                    Crouch
+    Left - A                   Crouch
     - Shift
 
-    Right - D                  Shoot - M1
+    Right - D                Sprint - Ctrl
 
-    Backward -S
+    Backward -S         
+    Shoot - M1
 
 '
   m_isRightToLeft: 0
@@ -5315,10 +5316,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: -155.8014, w: 0}
   m_textInfo:
     textComponent: {fileID: 6562095499972101311}
-    characterCount: 128
+    characterCount: 147
     spriteCount: 0
-    spaceCount: 66
-    wordCount: 20
+    spaceCount: 74
+    wordCount: 23
     linkCount: 0
     lineCount: 4
     pageCount: 1
@@ -5922,7 +5923,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &8204838045511436872
 MonoBehaviour:
   m_ObjectHideFlags: 0
